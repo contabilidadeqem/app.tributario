@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diagnóstico Tributário — Profissionais de Saúde</title>
+  <meta name="description" content="Descubra qual regime tributário faz você pagar menos imposto. Análise gratuita para médicos, dentistas e clínicas." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F7F6F2;
+      --surface: #FFFFFF;
+      --border: rgba(0,0,0,0.10);
+      --border-strong: rgba(0,0,0,0.18);
+      --text: #1A1A18;
+      --text-2: #5A5A56;
+      --text-3: #999993;
+      --green: #1D9E75;
+      --green-light: #E1F5EE;
+      --green-dark: #085041;
+      --red-light: #FCEBEB;
+      --red: #A32D2D;
+      --accent: #1A1A18;
+      --radius: 10px;
+      --radius-lg: 14px;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* HERO */
+    .hero {
+      background: var(--text);
+      color: #F7F6F2;
+      padding: 3rem 1.5rem 3.5rem;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 1rem;
+      background: rgba(29,158,117,0.15);
+      padding: 4px 14px;
+      border-radius: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(24px, 5vw, 38px);
+      font-weight: 500;
+      line-height: 1.2;
+      max-width: 560px;
+      margin: 0 auto 1rem;
+    }
+    .hero h1 em { font-style: normal; color: var(--green); }
+    .hero p {
+      font-size: 15px;
+      color: rgba(247,246,242,0.65);
+      max-width: 440px;
+      margin: 0 auto;
+    }
+
+    /* TRUST BAR */
+    .trust-bar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .trust-item {
+      font-size: 12px;
+      color: var(--text-2);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .trust-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+
+    /* LAYOUT */
+    .container { max-width: 700px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+    /* FORM CARD */
+    .form-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .form-section {
+      padding: 1.5rem 1.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .form-section:last-child { border-bottom: none; }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1.25rem;
+    }
+    .section-num {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--text);
+      color: #F7F6F2;
+      font-size: 11px;
+      font-weight: 500;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .section-head h2 {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+    @media (max-width: 560px) {
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    }
+
+    .field { display: flex; flex-direction: column; gap: 5px; }
+    .field label { font-size: 12px; color: var(--text-2); font-weight: 500; }
+    .field input, .field select {
+      height: 40px;
+      padding: 0 12px;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      font-family: 'DM Sans', sans-serif;
+      width: 100%;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      -webkit-appearance: none;
+    }
+    .field input:focus, .field select:focus {
+      outline: none;
+      border-color: var(--text);
+      box-shadow: 0 0 0 3px rgba(0,0,0,0.07);
+      background: var(--surface);
+    }
+    .field .hint { font-size: 11px; color: var(--text-3); }
+    .field.required label::after { content: ' *'; color: var(--green); }
+
+    /* SUBMIT */
+    .submit-area { padding: 1.5rem 1.75rem; background: var(--surface); }
+    .btn-submit {
+      width: 100%;
+      height: 48px;
+      background: var(--text);
+      color: #F7F6F2;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 15px;
+      font-weight: 500;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+      letter-spacing: 0.01em;
+    }
+    .btn-submit:hover { opacity: 0.88; }
+    .btn-submit:active { transform: scale(0.99); }
+    .btn-submit:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .submit-note {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-3);
+      margin-top: 10px;
+    }
+
+    /* LOADING */
+    .loading-card {
+      display: none;
+      margin-top: 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      text-align: center;
+    }
+    .loading-card.visible { display: block; }
+    .loading-icon {
+      width: 40px; height: 40px;
+      border: 2px solid var(--border);
+      border-top-color: var(--text);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 1rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-card h3 { font-size: 15px; font-weight: 500; margin-bottom: 6px; }
+    .loading-card p { font-size: 13px; color: var(--text-2); }
+    .loading-steps { margin-top: 1.5rem; text-align: left; max-width: 320px; margin-inline: auto; }
+    .loading-step {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 12px; color: var(--text-3);
+      padding: 5px 0;
+      transition: color 0.3s;
+    }
+    .loading-step.active { color: var(--text); }
+    .loading-step.done { color: var(--green); }
+    .step-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: currentColor; flex-shrink: 0;
+    }
+
+    /* RESULT */
+    .result-area { display: none; margin-top: 1.5rem; }
+    .result-area.visible { display: block; }
+
+    .cards-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 1.25rem;
+    }
+    @media (max-width: 500px) { .cards-row { grid-template-columns: 1fr; } }
+
+    .regime-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1rem;
+    }
+    .regime-card.recommended { border: 2px solid var(--green); }
+
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: var(--green-light);
+      color: var(--green-dark);
+      font-weight: 500;
+      margin-bottom: 10px;
+      letter-spacing: 0.03em;
+    }
+    .regime-card h3 { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
+    .regime-card .carga { font-size: 24px; font-weight: 500; color: var(--text); margin: 8px 0 2px; }
+    .regime-card .aliq { font-size: 12px; color: var(--text-2); }
+    .regime-card .diferenca {
+      margin-top: 10px;
+      font-size: 12px;
+      padding: 6px 8px;
+      border-radius: 7px;
+      background: var(--bg);
+      color: var(--text-2);
+    }
+
+    /* REPORT */
+    .report-wrapper {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .report-header {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .report-header h3 { font-size: 14px; font-weight: 500; }
+    .btn-copy {
+      font-size: 12px;
+      padding: 6px 14px;
+      border: 1px solid var(--border-strong);
+      border-radius: 7px;
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: background 0.1s;
+    }
+    .btn-copy:hover { background: var(--bg); }
+
+    .report-body {
+      padding: 1.5rem;
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--text);
+      max-height: 640px;
+      overflow-y: auto;
+    }
+    .report-body h2 {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      margin: 1.5rem 0 0.5rem;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+    .report-body h2:first-child { margin-top: 0; }
+    .report-body p { margin-bottom: 0.65rem; }
+    .report-body table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 13px; }
+    .report-body th {
+      text-align: left;
+      font-weight: 500;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-2);
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--border-strong);
+    }
+    .report-body td { padding: 7px 10px; border-bottom: 1px solid var(--border); }
+    .report-body tr.highlight td { background: var(--green-light); color: var(--green-dark); font-weight: 500; }
+
+    .action-row { display: flex; gap: 10px; margin-top: 1rem; flex-wrap: wrap; }
+    .btn-action {
+      flex: 1;
+      min-width: 140px;
+      height: 40px;
+      background: transparent;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .btn-action:hover { background: var(--surface); }
+
+    /* ERROR */
+    .error-msg {
+      display: none;
+      margin-top: 1rem;
+      padding: 0.9rem 1rem;
+      border-radius: var(--radius);
+      background: var(--red-light);
+      color: var(--red);
+      font-size: 13px;
+      border: 1px solid #F09595;
+    }
+    .error-msg.visible { display: block; }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-3);
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="hero-eyebrow">Diagnóstico gratuito</span>
+  <h1>Descubra quanto sua clínica pode <em>parar de pagar</em> em imposto</h1>
+  <p>Análise comparativa dos 3 regimes tributários com memória de cálculo completa. Para médicos, dentistas e clínicas.</p>
+</div>
+
+<div class="trust-bar">
+  <div class="trust-item"><div class="trust-dot"></div> Cálculo baseado em legislação vigente 2026</div>
+  <div class="trust-item"><div class="trust-dot"></div> Simples, Presumido e Real comparados</div>
+  <div class="trust-item"><div class="trust-dot"></div> Resultado em menos de 60 segundos</div>
+</div>
+
+<div class="container">
+
+  <div class="form-card">
+
+    <!-- Seção 1 -->
+    <div class="form-section">
+      <div class="section-head">
+        <div class="section-num">1</div>
+        <h2>Identificação da empresa</h2>
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <label>Razão social</label>
+          <input type="text" id="razao_social" placeholder="Nome Ltda" />
+        </div>
+        <div class="field">
+          <label>CNAE principal</label>
+          <input type="text" id="cnae" placeholder="Ex: 8630-5/02 — Medicina" />
+        </div>
+      </div>
+      <div class="grid-2" style="margin-top: 12px;">
+        <div class="field">
+          <label>Estado (UF)</label>
+          <select id="estado">
+            <option value="">Selecione</option>
+            <option>PE</option><option>BA</option><option>CE</option><option>RN</option>
+            <option>PB</option><option>AL</option><option>SE</option><option>PI</option>
+            <option>MA</option><option>SP</option><option>RJ</option><option>MG</option>
+            <option>RS</option><option>PR</option><option>SC</option><option>GO</option>
+            <option>DF</option><option>MT</option><option>MS</option><option>PA</option>
+            <option>AM</option><option>Outro</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Município</label>
+          <input type="text" id="municipio" placeholder="Ex: Recife" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Seção 2 -->
+    <div class="form-section">
+      <div class="section-head">
+        <div class="section-num">2</div>
+        <h2>Faturamento e folha de pagamento</h2>
+      </div>
+      <div class="grid-3">
+        <div class="field required">
+          <label>Faturamento últimos 12 meses</label>
+          <input type="text" id="faturamento_atual" placeholder="Ex: 960000" />
+          <span class="hint">Base de cálculo do Simples (RBT12)</span>
+        </div>
+        <div class="field">
+          <label>Faturamento projetado (ano)</label>
+          <input type="text" id="faturamento_proj" placeholder="Ex: 1200000" />
+        </div>
+        <div class="field required">
+          <label>Folha mensal com encargos</label>
+          <input type="text" id="folha" placeholder="Ex: 28000" />
+          <span class="hint">Pró-labore + salários + INSS + FGTS</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Seção 3 -->
+    <div class="form-section">
+      <div class="section-head">
+        <div class="section-num">3</div>
+        <h2>Perfil tributário</h2>
+      </div>
+      <div class="grid-3">
+        <div class="field required">
+          <label>Margem líquida estimada (%)</label>
+          <input type="text" id="margem" placeholder="Ex: 35" />
+          <span class="hint">Lucro sobre o faturamento</span>
+        </div>
+        <div class="field">
+          <label>Clientes predominantes</label>
+          <select id="clientes">
+            <option value="Planos de saúde">Planos de saúde</option>
+            <option value="PF">Pessoa física (particular)</option>
+            <option value="PJ">Pessoa jurídica</option>
+            <option value="Misto">Misto</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Insumos com crédito PIS/COFINS (mês)</label>
+          <input type="text" id="insumos" placeholder="Ex: 5000" />
+          <span class="hint">Deixe em branco se não souber</span>
+        </div>
+      </div>
+      <div class="grid-2" style="margin-top: 12px;">
+        <div class="field">
+          <label>Especialidade ou atividade principal</label>
+          <input type="text" id="especialidade" placeholder="Ex: Clínica odontológica, cardiologia..." />
+        </div>
+        <div class="field">
+          <label>Filial em outro estado?</label>
+          <select id="filial">
+            <option value="Não">Não</option>
+            <option value="Sim">Sim</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Seção 4 -->
+    <div class="form-section">
+      <div class="section-head">
+        <div class="section-num">4</div>
+        <h2>Contexto adicional (opcional)</h2>
+      </div>
+      <div class="field">
+        <label>Observações para enriquecer o diagnóstico</label>
+        <input type="text" id="obs" placeholder="Ex: sócio médico com alto pró-labore, contrato com hospital público, recuperação de créditos..." />
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="submit-area">
+      <button class="btn-submit" id="btn_gerar" onclick="gerarRelatorio()">
+        Gerar diagnóstico gratuito
+      </button>
+      <p class="submit-note">Campos com * são obrigatórios. Seus dados não são armazenados.</p>
+    </div>
+
+  </div>
+
+  <div class="error-msg" id="error_msg"></div>
+
+  <!-- Loading -->
+  <div class="loading-card" id="loading_card">
+    <div class="loading-icon"></div>
+    <h3>Processando o diagnóstico</h3>
+    <p>Comparando os três regimes com base na legislação 2026</p>
+    <div class="loading-steps">
+      <div class="loading-step active" id="step1"><div class="step-dot"></div> Identificando CNAE e enquadramento</div>
+      <div class="loading-step" id="step2"><div class="step-dot"></div> Calculando Simples Nacional (LC 123/2006)</div>
+      <div class="loading-step" id="step3"><div class="step-dot"></div> Calculando Lucro Presumido</div>
+      <div class="loading-step" id="step4"><div class="step-dot"></div> Calculando Lucro Real com créditos</div>
+      <div class="loading-step" id="step5"><div class="step-dot"></div> Gerando relatório e recomendação</div>
+    </div>
+  </div>
+
+  <!-- Result -->
+  <div class="result-area" id="result_area">
+    <div style="margin-bottom: 1rem;">
+      <p style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3); margin-bottom: 0.75rem;">Comparativo de carga tributária</p>
+      <div class="cards-row" id="cards_row"></div>
+    </div>
+
+    <div class="report-wrapper">
+      <div class="report-header">
+        <h3>Relatório completo P.A.C.E.F</h3>
+        <button class="btn-copy" onclick="copiarRelatorio()">Copiar</button>
+      </div>
+      <div class="report-body" id="report_body"></div>
+    </div>
+
+    <div class="action-row">
+      <button class="btn-action" onclick="novaAnalise()">Nova análise</button>
+      <button class="btn-action" onclick="window.print()">Imprimir / PDF</button>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Diagnóstico gerado por inteligência artificial com base na legislação tributária vigente em 2026.</p>
+    <p style="margin-top: 4px;">Não substitui análise personalizada de um contador. Para um planejamento completo, agende uma conversa.</p>
+  </div>
+
+</div>
+
+<script>
+  let relatorioTexto = '';
+  let stepTimer = null;
+
+  function startSteps() {
+    const steps = ['step1','step2','step3','step4','step5'];
+    let i = 0;
+    stepTimer = setInterval(() => {
+      if (i > 0) document.getElementById(steps[i-1]).className = 'loading-step done';
+      if (i < steps.length) {
+        document.getElementById(steps[i]).className = 'loading-step active';
+        i++;
+      } else {
+        clearInterval(stepTimer);
+      }
+    }, 3500);
+  }
+
+  function stopSteps() {
+    if (stepTimer) clearInterval(stepTimer);
+    ['step1','step2','step3','step4','step5'].forEach(id => {
+      document.getElementById(id).className = 'loading-step';
+    });
+  }
+
+  async function gerarRelatorio() {
+    const campos = {
+      razao_social: document.getElementById('razao_social').value.trim(),
+      cnae: document.getElementById('cnae').value.trim(),
+      estado: document.getElementById('estado').value,
+      municipio: document.getElementById('municipio').value.trim(),
+      faturamento_atual: document.getElementById('faturamento_atual').value.trim(),
+      faturamento_proj: document.getElementById('faturamento_proj').value.trim(),
+      folha: document.getElementById('folha').value.trim(),
+      margem: document.getElementById('margem').value.trim(),
+      clientes: document.getElementById('clientes').value,
+      insumos: document.getElementById('insumos').value.trim(),
+      especialidade: document.getElementById('especialidade').value.trim(),
+      filial: document.getElementById('filial').value,
+      obs: document.getElementById('obs').value.trim()
+    };
+
+    if (!campos.faturamento_atual || !campos.folha || !campos.margem) {
+      mostrarErro('Preencha os campos obrigatórios: faturamento dos últimos 12 meses, folha mensal e margem líquida.');
+      return;
+    }
+
+    esconderErro();
+    document.getElementById('btn_gerar').disabled = true;
+    document.getElementById('result_area').classList.remove('visible');
+    document.getElementById('loading_card').classList.add('visible');
+    startSteps();
+
+    try {
+      const res = await fetch('/api/analisar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ campos })
+      });
+
+      stopSteps();
+      document.getElementById('loading_card').classList.remove('visible');
+      document.getElementById('btn_gerar').disabled = false;
+
+      if (!res.ok) throw new Error('Erro na API');
+
+      const data = await res.json();
+      const text = data.content.map(i => i.text || '').join('');
+      processarResposta(text);
+
+    } catch(err) {
+      stopSteps();
+      document.getElementById('loading_card').classList.remove('visible');
+      document.getElementById('btn_gerar').disabled = false;
+      mostrarErro('Erro ao gerar o diagnóstico. Verifique sua conexão e tente novamente.');
+    }
+  }
+
+  function processarResposta(text) {
+    let cardsData = null;
+    let relatorio = text;
+
+    const jsonMatch = text.match(/CARDS_JSON:(\{.*?\})\s*\n/);
+    if (jsonMatch) {
+      try {
+        cardsData = JSON.parse(jsonMatch[1]);
+        relatorio = text.replace(/CARDS_JSON:.*?\n/, '').trim();
+      } catch(e) {}
+    }
+
+    relatorioTexto = relatorio;
+    if (cardsData) renderCards(cardsData);
+    renderRelatorio(relatorio);
+
+    document.getElementById('result_area').classList.add('visible');
+    document.getElementById('result_area').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function fmtR(val) {
+    return 'R$ ' + Math.round(val).toLocaleString('pt-BR');
+  }
+
+  function renderCards(d) {
+    const regimes = [
+      { key: 'simples', label: 'Simples Nacional' },
+      { key: 'presumido', label: 'Lucro Presumido' },
+      { key: 'real', label: 'Lucro Real' }
+    ];
+    const melhor = d.melhor;
+    const melhorCarga = d[melhor]?.carga || 0;
+    let html = '';
+
+    regimes.forEach(r => {
+      const info = d[r.key];
+      if (!info) return;
+      const isRec = r.key === melhor;
+      const diff = Math.round(info.carga - melhorCarga);
+      const difMes = diff > 0 ? Math.round(diff / 12) : null;
+
+      html += `<div class="regime-card ${isRec ? 'recommended' : ''}">
+        ${isRec ? '<span class="badge">Recomendado</span>' : '<div style="height:22px"></div>'}
+        <h3>${r.label}</h3>
+        <div class="carga">${fmtR(info.carga)}<span style="font-size:12px;font-weight:400;color:var(--text-2)">/ano</span></div>
+        <div class="aliq">${Number(info.aliq).toFixed(1)}% da receita</div>
+        ${difMes
+          ? `<div class="diferenca">+${fmtR(difMes)}/mês vs. recomendado</div>`
+          : `<div class="diferenca" style="color:var(--green);background:var(--green-light)">Menor carga tributária</div>`
+        }
+      </div>`;
+    });
+
+    document.getElementById('cards_row').innerHTML = html;
+  }
+
+  function renderRelatorio(texto) {
+    const el = document.getElementById('report_body');
+    let html = texto
+      .replace(/## (.+)/g, '<h2>$1</h2>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\n\n/g, '</p><p>')
+      .replace(/\n/g, '<br>');
+    el.innerHTML = '<p>' + html + '</p>';
+  }
+
+  function copiarRelatorio() {
+    if (!relatorioTexto) return;
+    navigator.clipboard.writeText(relatorioTexto).then(() => {
+      const btn = document.querySelector('.btn-copy');
+      btn.textContent = 'Copiado!';
+      setTimeout(() => btn.textContent = 'Copiar', 2000);
+    });
+  }
+
+  function novaAnalise() {
+    document.getElementById('result_area').classList.remove('visible');
+    document.getElementById('cards_row').innerHTML = '';
+    document.getElementById('report_body').innerHTML = '';
+    relatorioTexto = '';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function mostrarErro(msg) {
+    const el = document.getElementById('error_msg');
+    el.textContent = msg;
+    el.classList.add('visible');
+  }
+
+  function esconderErro() {
+    document.getElementById('error_msg').classList.remove('visible');
+  }
+</script>
+
+</body>
+</html>
